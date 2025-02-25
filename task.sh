@@ -1,7 +1,10 @@
 #! /bin/bash
 
-echo $DB_USER
-echo $DB_PASSWORD
+if [[ -z "$DB_USER" || -z "$DB_PASSWORD" ]]; then
+    echo "Error: Database credentials not set. Please export DB_USER and DB_PASSWORD." >&2
+    exit 1
+fi
+
 
 mysqldump -u "$DB_USER" -p"$DB_PASSWORD" --databases ShopDB > shopdb_backup.sql
 
